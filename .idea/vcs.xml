@@ -2,8 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hospitalar-agendamento" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hospitalar-historico" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/hospitalar-notificacoes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/projetos-fiap-2025-hospitalar-agendamento" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/projetos-fiap-2025-hospitalar-historico" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/projetos-fiap-2025-hospitalar-notificacoes" vcs="Git" />
   </component>
 </project>
