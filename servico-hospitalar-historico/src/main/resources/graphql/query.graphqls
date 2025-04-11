@@ -1,0 +1,10 @@
+# query.graphqls
+
+query {
+    getPatientHistory(paciente: "12345") {
+        id
+        medico
+        enfermeiro
+        dataHora
+    }
+}
