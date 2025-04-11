@@ -98,17 +98,21 @@
             <artifactId>spring-kafka</artifactId>
             <version>${spring-kafka.version}</version>
         </dependency>
-        <!-- Spring-Boot-Starter -->
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
-        <!-- jackson-datatype-jsr310 -->
+        <!-- Jackson Dtatype Jsr310 -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.18.3</version> <!-- Use a versão que você está utilizando no seu projeto -->
+        </dependency>
+        <!-- Jackson Databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <!-- GraphQL Spring Boot Starter -->
         <!-- GraphQL Spring Boot Starter com exclusão -->
@@ -149,7 +153,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.4</version>
                 <executions>
                     <execution>
                         <goals>
