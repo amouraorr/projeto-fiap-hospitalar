@@ -2,6 +2,7 @@ package com.fiap.hospitalar.historico.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fiap.hospitalar.historico.dto.HistoryDTO;
 import com.fiap.hospitalar.historico.model.History;
 import com.fiap.hospitalar.historico.repository.HistoryRepository;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,18 +22,29 @@ public class HistoryService {
     @Autowired
     private HistoryRepository historyRepository;
 
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+    public HistoryService(HistoryRepository historyRepository) {
+        this.historyRepository = historyRepository;
+        this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule());
+    }
+
+
     @KafkaListener(topics = "consultas-agendadas", groupId = "historico")
     public void processarConsulta(String mensagem) {
         logger.info("Recebendo mensagem do tópico 'consultas-agendadas': {}", mensagem);
-        ObjectMapper objectMapper = new ObjectMapper();
+
         try {
             HistoryDTO historyDTO = objectMapper.readValue(mensagem, HistoryDTO.class);
+            logger.info("DataHora recebida: {}", historyDTO.getDataHora());
+
             History history = new History();
             history.setPaciente(historyDTO.getPaciente());
             history.setMedico(historyDTO.getMedico());
             history.setEnfermeiro(historyDTO.getEnfermeiro());
-            //history.setDataHora(LocalDateTime.parse((CharSequence) historyDTO));
-            history.setDataHora(historyDTO.getDataHora()); // Corrigido para usar o campo correto
+            history.setDataHora(historyDTO.getDataHora());
             historyRepository.save(history);
             logger.info("Consulta processada e salva com sucesso: {}", history);
         } catch (JsonProcessingException e) {
