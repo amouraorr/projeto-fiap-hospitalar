@@ -115,17 +115,21 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <!-- GraphQL Spring Boot Starter -->
-        <!-- GraphQL Spring Boot Starter com exclusão -->
         <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>11.1.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.graphql-java</groupId>
-                    <artifactId>graphql-java</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <!-- GraphQL Spring Boot Starter -->
+        <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-spring-boot-starter</artifactId>
+        <version>11.1.0</version>
+        </dependency>
+        <!-- Spring Boot Starter GraphQL -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
         </dependency>
         <!-- GraphQL Java Tools -->
         <dependency>
