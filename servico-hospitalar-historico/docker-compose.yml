@@ -63,7 +63,7 @@ services:
       - postgres
       - kafka
     ports:
-      - "8086:8086"  # Porta do serviço historico
+      - "8081:8081"  # Porta do serviço historico
     networks:
       - projetos-fiap-2025-hospitalar-historico_app_network
 

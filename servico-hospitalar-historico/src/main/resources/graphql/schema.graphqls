@@ -8,10 +8,10 @@ type History {
     dataHora: String!
 }
 
-type Query {
+extend type Query {
     getPatientHistory(paciente: String!): [History]
 }
 
-type Mutation {
+extend type Mutation {
     addHistory(paciente: String!, medico: String!, enfermeiro: String!, dataHora: String!): History
 }

@@ -114,19 +114,19 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <!-- GraphQL Spring Boot Starter -->
-        <dependency>
+        <!-- GraphQL Spring Boot Starter TODO REVER-->
+<!--        <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>11.1.0</version>
-        </dependency>
-        <!-- GraphQL Spring Boot Starter -->
-        <dependency>
+        </dependency>-->
+        <!-- GraphQL Spring Boot Starter TODO REVER-->
+<!--        <dependency>
         <groupId>com.graphql-java-kickstart</groupId>
         <artifactId>graphql-spring-boot-starter</artifactId>
         <version>11.1.0</version>
-        </dependency>
-        <!-- Spring Boot Starter GraphQL -->
+        </dependency>-->
+        <!-- Spring Boot Starter GraphQL TODO: SOMENTE ESSE-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-graphql</artifactId>
@@ -141,13 +141,13 @@
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
-            <version>17.0</version> <!-- Ajuste a versão se necessário -->
+            <version>17.0</version>
         </dependency>
         <!-- graphql-java-extended-scalars -->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-extended-scalars</artifactId>
-            <version>17.0</version> <!-- Ajuste a versão para ser compatível -->
+            <version>17.0</version>
         </dependency>
     </dependencies>
 
