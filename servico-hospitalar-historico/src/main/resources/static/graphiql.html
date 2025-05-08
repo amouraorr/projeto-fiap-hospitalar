@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
     <title>GraphiQL</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.css"/>
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/graphiql@1.5.0/graphiql.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        #graphiql {
-            flex: 1;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Carregando GraphiQL e React 18 para suportar useInsertionEffect -->
+    <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.min.css" />
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/graphiql/graphiql.min.js"></script>
 </head>
-<body>
-<div id="graphiql">Loading...</div>
+<body style="margin: 0; height: 100vh;">
+<div id="graphiql" style="height: 100vh;">Loading...</div>
 <script>
+    // Define o endpoint GraphQL conforme a configuração do seu backend.
     const graphQLFetcher = (graphQLParams) =>
-        fetch('/graphql', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(graphQLParams),
-        }).then((response) => response.json()).catch((error) => console.error(error));
+      fetch('/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(graphQLParams)
+      }).then(response => response.json());
 
-    ReactDOM.render(React.createElement(GraphiQL, {
-        fetcher: graphQLFetcher
-    }), document.getElementById('graphiql'));
+    // Usando a nova API de renderização do React 18
+    const root = ReactDOM.createRoot(document.getElementById('graphiql'));
+    root.render(React.createElement(GraphiQL, { fetcher: graphQLFetcher }));
 </script>
 </body>
 </html>
