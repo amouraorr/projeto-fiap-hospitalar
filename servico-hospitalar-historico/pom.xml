@@ -115,17 +115,11 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <!-- GraphQL Spring Boot Starter TODO REVER-->
-<!--        <dependency>
+        <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>11.1.0</version>
-        </dependency>-->
-        <!-- GraphQL Spring Boot Starter TODO REVER-->
-<!--        <dependency>
-        <groupId>com.graphql-java-kickstart</groupId>
-        <artifactId>graphql-spring-boot-starter</artifactId>
-        <version>11.1.0</version>
-        </dependency>-->
+        </dependency>
         <!-- Spring Boot Starter GraphQL TODO: SOMENTE ESSE-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -134,7 +128,7 @@
         <!-- GraphQL Java Tools -->
         <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-java-tools</artifactId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
             <version>11.1.0</version>
         </dependency>
         <!-- GraphQL Java -->
@@ -192,7 +186,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
+                    <!--<compilerArgs>&#45;&#45;enable-preview</compilerArgs>-->
                 </configuration>
             </plugin>
         </plugins>
