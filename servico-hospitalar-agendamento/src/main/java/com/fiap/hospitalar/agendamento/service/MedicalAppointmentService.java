@@ -41,7 +41,6 @@ public class MedicalAppointmentService {
 
         MedicalAppointment createdAppointment = appointmentRepository.save(appointment);
 
-        // Criar o DTO de resposta
         MedicalAppointmentResponseDTO responseDTO = new MedicalAppointmentResponseDTO();
         responseDTO.setId(createdAppointment.getId());
         responseDTO.setPaciente(createdAppointment.getPaciente());
@@ -49,13 +48,12 @@ public class MedicalAppointmentService {
         responseDTO.setEnfermeiro(createdAppointment.getEnfermeiro());
         responseDTO.setDataHora(createdAppointment.getDataHora());
 
-        // Enviar a mensagem para o Kafka
         kafkaMessageService.sendMessage(responseDTO);
         return createdAppointment;
     }
 
     public MedicalAppointment update(MedicalAppointment appointment) {
-        // Verifique se a consulta existe antes de atualizar
+
         if (!appointmentRepository.existsById(appointment.getId())) {
             throw new RuntimeException("Appointment not found");
         }
