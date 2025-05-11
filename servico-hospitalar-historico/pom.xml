@@ -26,6 +26,14 @@
         <spring-kafka.version>3.0.0</spring-kafka.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <name>JitPack Repository</name>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Spring Boot Starter Web -->
         <dependency>
@@ -114,34 +122,10 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <!-- GraphQL Spring Boot Starter TODO REVER-->
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>11.1.0</version>
-        </dependency>
-        <!-- Spring Boot Starter GraphQL TODO: SOMENTE ESSE-->
+        <!-- Spring Boot Starter GraphQL -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-graphql</artifactId>
-        </dependency>
-        <!-- GraphQL Java Tools -->
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>11.1.0</version>
-        </dependency>
-        <!-- GraphQL Java -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java</artifactId>
-            <version>17.0</version>
-        </dependency>
-        <!-- graphql-java-extended-scalars -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-extended-scalars</artifactId>
-            <version>17.0</version>
         </dependency>
     </dependencies>
 
@@ -186,7 +170,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <!--<compilerArgs>&#45;&#45;enable-preview</compilerArgs>-->
                 </configuration>
             </plugin>
         </plugins>
