@@ -1,3 +1,4 @@
+/*
 package com.fiap.hospitalar.historico.controller;
 
 import com.fiap.hospitalar.historico.dto.HistoryDTO;
@@ -38,4 +39,4 @@ public class HistoryController {
         History savedHistory = historyService.saveHistory(history);
         return HistoryMapper.INSTANCE.historyToHistoryDTO(savedHistory);
     }
-}
+}*/
