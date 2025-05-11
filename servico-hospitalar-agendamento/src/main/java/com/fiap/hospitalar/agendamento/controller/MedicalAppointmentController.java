@@ -23,7 +23,7 @@ public class MedicalAppointmentController {
     private MedicalAppointmentService appointmentService;
 
     @Autowired
-    private KafkaProducerMessage kafkaMessageService; // Injetar o KafkaProducerMessage
+    private KafkaProducerMessage kafkaMessageService;
 
     @PostMapping
     @Operation(summary = "Criar uma nova consulta médica", description = "Cria uma nova consulta médica com os detalhes fornecidos.")
@@ -32,12 +32,11 @@ public class MedicalAppointmentController {
             MedicalAppointment appointment = MedicalAppointmentMapper.INSTANCE.toEntity(appointmentRequestDTO);
             MedicalAppointment createdAppointment = appointmentService.save(appointment);
 
-            // Enviar mensagem para o Kafka
             kafkaMessageService.sendMessage(MedicalAppointmentMapper.INSTANCE.toResponseDTO(createdAppointment));
 
             return new ResponseEntity<>(MedicalAppointmentMapper.INSTANCE.toResponseDTO(createdAppointment), HttpStatus.CREATED);
         } catch (Exception e) {
-            // Log the error
+
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -47,10 +46,9 @@ public class MedicalAppointmentController {
     @Operation(summary = "Atualizar uma consulta médica", description = "Atualiza uma consulta médica existente")
     public ResponseEntity<MedicalAppointmentResponseDTO> updateAppointment(@PathVariable Long id, @RequestBody MedicalAppointmentRequestDTO appointmentRequestDTO) {
         MedicalAppointment appointment = MedicalAppointmentMapper.INSTANCE.toEntity(appointmentRequestDTO);
-        appointment.setId(id); // Define o ID da consulta a ser atualizada
+        appointment.setId(id);
         MedicalAppointment updatedAppointment = appointmentService.update(appointment);
 
-        // Enviar mensagem para o Kafka
         kafkaMessageService.sendMessage(MedicalAppointmentMapper.INSTANCE.toResponseDTO(updatedAppointment));
 
         return new ResponseEntity<>(MedicalAppointmentMapper.INSTANCE.toResponseDTO(updatedAppointment), HttpStatus.OK);
