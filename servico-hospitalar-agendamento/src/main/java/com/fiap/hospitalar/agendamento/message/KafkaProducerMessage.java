@@ -22,7 +22,7 @@ public class KafkaProducerMessage {
 
     public void sendMessage(MedicalAppointmentResponseDTO message) {
         try {
-            kafkaTemplate.send("consultas-agendadas", message).get(); // Usando get() para esperar o resultado
+            kafkaTemplate.send("consultas-agendadas", message).get();
             logger.info("Mensagem enviada com sucesso para o tópico 'consultas-agendadas': {}", message);
         } catch (Exception ex) {
             logger.error("Falha ao enviar mensagem para o tópico 'consultas-agendadas'", ex);

@@ -8,10 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MedicalAppointmentRepository extends JpaRepository<MedicalAppointment, Long> {
-    // Adicionar métodos de consulta personalizados
+
     List<MedicalAppointment> findByMedico(String medico);
 
-    // Exemplo de consulta personalizada usando @Query
-    // @Query("SELECT m FROM MedicalAppointment m WHERE m.status = :status")
-    // List<MedicalAppointment> findByStatus(@Param("status") String status);
 }
