@@ -1,0 +1,23 @@
+#fullSchema.graphqls
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    hello: String
+    getPatientHistory(paciente: String!): [History]
+}
+
+type Mutation {
+    addHistory(paciente: String!, medico: String!, enfermeiro: String!, dataHora: String!): History
+}
+
+type History {
+    id: ID!
+    paciente: String!
+    medico: String!
+    enfermeiro: String!
+    dataHora: String!
+}
+
