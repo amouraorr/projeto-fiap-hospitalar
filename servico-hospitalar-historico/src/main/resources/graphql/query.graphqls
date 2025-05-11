@@ -1,5 +1,0 @@
-# query.graphqls
-
-type Query {}
-
-type Mutation {}
