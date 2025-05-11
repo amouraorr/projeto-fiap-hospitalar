@@ -14,8 +14,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/graphql", "/graphql/**", "/graphiql.html", "/graphiql/**", "/error").permitAll()
+                        .anyRequest().authenticated()
                 );
         return http.build();
     }
