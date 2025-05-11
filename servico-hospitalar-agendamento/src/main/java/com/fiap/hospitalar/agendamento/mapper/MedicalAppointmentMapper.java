@@ -13,7 +13,7 @@ public interface MedicalAppointmentMapper {
 
     MedicalAppointmentRequestDTO toDTO(MedicalAppointment appointment);
 
-    MedicalAppointment toEntity(MedicalAppointmentRequestDTO dto); // Renomeado para toEntity
+    MedicalAppointment toEntity(MedicalAppointmentRequestDTO dto);
 
     MedicalAppointmentResponseDTO toResponseDTO(MedicalAppointment createdAppointment);
 }

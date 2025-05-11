@@ -15,6 +15,6 @@ public class MedicalAppointmentRequestDTO {
     private String medico;
     private String enfermeiro;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") // Formato correto
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dataHora;
 }
