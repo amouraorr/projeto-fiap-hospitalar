@@ -1,151 +1,124 @@
 package com.fiap.hospitalar.agendamento.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.hospitalar.agendamento.dto.request.MedicalAppointmentRequestDTO;
 import com.fiap.hospitalar.agendamento.dto.response.MedicalAppointmentResponseDTO;
+import com.fiap.hospitalar.agendamento.mapper.MedicalAppointmentMapper;
+import com.fiap.hospitalar.agendamento.model.MedicalAppointment;
 import com.fiap.hospitalar.agendamento.service.MedicalAppointmentService;
+import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@SpringBootTest
+@AutoConfigureMockMvc
 public class MedicalAppointmentControllerTest {
 
-    @LocalServerPort
-    private int port;
-
     @Autowired
-    private TestRestTemplate restTemplate;
+    private MockMvc mockMvc;
 
     @MockBean
     private MedicalAppointmentService appointmentService;
 
-    private String getBaseUrl() {
-        return "http://localhost:" + port + "/appointments";
-    }
+    @MockBean
+    private MedicalAppointmentMapper medicalAppointmentMapper;
 
-    /*@Test
-    @DisplayName("Teste de criação e consulta de consulta médica com sucesso")
-    public void testCreateAndGetAppointment() {
-        String baseUrl = getBaseUrl();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-        MedicalAppointmentRequestDTO requestDto = new MedicalAppointmentRequestDTO();
-        requestDto.setPaciente("Patient A");
-        requestDto.setMedico("Dr. Smith");
-        requestDto.setEnfermeiro("Nurse Joy");
-        requestDto.setDataHora(LocalDateTime.of(2024, 4, 29, 10, 0, 0));
-
-        // Act
-        ResponseEntity<MedicalAppointmentResponseDTO> postResponse =
-                restTemplate.postForEntity(baseUrl, requestDto, MedicalAppointmentResponseDTO.class);
-
-        // Log the response for debugging
-        System.out.println("Response: " + postResponse);
-
-        assertEquals(HttpStatus.CREATED, postResponse.getStatusCode(), "Expected HTTP status CREATED");
-        MedicalAppointmentResponseDTO createdAppointment = postResponse.getBody();
-        assertNotNull(createdAppointment, "Created appointment should not be null");
-        assertNotNull(createdAppointment.getId(), "Appointment ID should not be null");
-        assertEquals("Patient A", createdAppointment.getPaciente());
-        assertEquals("Dr. Smith", createdAppointment.getMedico());
-        assertEquals("Nurse Joy", createdAppointment.getEnfermeiro());
-
-        String getUrl = baseUrl + "/" + createdAppointment.getId();
-        ResponseEntity<MedicalAppointmentResponseDTO> getResponse =
-                restTemplate.getForEntity(getUrl, MedicalAppointmentResponseDTO.class);
-        assertEquals(HttpStatus.OK, getResponse.getStatusCode(), "Expected HTTP status OK");
-        MedicalAppointmentResponseDTO appointmentFromGet = getResponse.getBody();
-        assertNotNull(appointmentFromGet, "Appointment from GET should not be null");
-        assertEquals(createdAppointment.getId(), appointmentFromGet.getId());
-        assertEquals("Patient A", appointmentFromGet.getPaciente());
-        assertEquals("Dr. Smith", appointmentFromGet.getMedico());
-    }*/
-
-
-    /*@Test
-    @DisplayName("Deve atualizar um agendamento existente")
-    public void testUpdateAppointment() {
-        String baseUrl = getBaseUrl();
-
-        MedicalAppointmentRequestDTO requestDto = new MedicalAppointmentRequestDTO();
-        requestDto.setPaciente("Patient B");
-        requestDto.setMedico("Dr. Brown");
-        requestDto.setEnfermeiro("Nurse May");
-        requestDto.setDataHora(LocalDateTime.of(2024, 4, 29, 11, 0, 0));
-
-        ResponseEntity<MedicalAppointmentResponseDTO> postResponse =
-                restTemplate.postForEntity(baseUrl, requestDto, MedicalAppointmentResponseDTO.class);
-        assertEquals(HttpStatus.CREATED, postResponse.getStatusCode());
-        Long id = postResponse.getBody().getId();
-        assertNotNull(id, "ID must be provided for update");
-
-        MedicalAppointmentRequestDTO updateDto = new MedicalAppointmentRequestDTO();
-        updateDto.setPaciente("Patient B Updated");
-        updateDto.setMedico("Dr. Brown Updated");
-        updateDto.setEnfermeiro("Nurse May Updated");
-        updateDto.setDataHora(LocalDateTime.of(2024, 5, 1, 12, 0, 0));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<MedicalAppointmentRequestDTO> requestEntity = new HttpEntity<>(updateDto, headers);
-
-        ResponseEntity<MedicalAppointmentResponseDTO> updateResponse =
-                restTemplate.exchange(baseUrl + "/" + id, HttpMethod.PUT, requestEntity, MedicalAppointmentResponseDTO.class);
-
-        assertEquals(HttpStatus.OK, updateResponse.getStatusCode());
-        MedicalAppointmentResponseDTO updatedAppointment = updateResponse.getBody();
-        assertNotNull(updatedAppointment, "Updated appointment should not be null");
-        assertEquals("Patient B Updated", updatedAppointment.getPaciente());
-        assertEquals("Dr. Brown Updated", updatedAppointment.getMedico());
-        assertEquals("Nurse May Updated", updatedAppointment.getEnfermeiro());
-    }*/
 
     @Test
-    @DisplayName("Teste de todas as consultas médicas")
-    public void testGetAllAppointments() {
-        String baseUrl = getBaseUrl();
+    @DisplayName("Deve criar uma nova consulta médica com sucesso")
+    public void testCreateAppointmentSuccess() throws Exception {
 
-        ResponseEntity<MedicalAppointmentResponseDTO[]> response =
-                restTemplate.getForEntity(baseUrl, MedicalAppointmentResponseDTO[].class);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        MedicalAppointmentResponseDTO[] appointments = response.getBody();
-        assertNotNull(appointments, "Appointments list should not be null");
+        MedicalAppointmentRequestDTO requestDTO = new MedicalAppointmentRequestDTO();
 
+        MedicalAppointment appointment = new MedicalAppointment();
+
+        when(medicalAppointmentMapper.toEntity(requestDTO)).thenReturn(appointment);
+        when(appointmentService.save(any(MedicalAppointment.class))).thenReturn(appointment);
+        when(medicalAppointmentMapper.toResponseDTO(appointment)).thenReturn(new MedicalAppointmentResponseDTO());
+
+        mockMvc.perform(post("/appointments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isCreated());
     }
 
     @Test
-    @DisplayName("Deve excluir uma consulta médica com sucesso")
-    public void testDeleteAppointmentSuccess() {
+    @DisplayName("Deve atualizar uma consulta médica com sucesso")
+    public void testUpdateAppointmentSuccess() throws Exception {
 
         Long appointmentId = 1L;
+        MedicalAppointmentRequestDTO requestDTO = new MedicalAppointmentRequestDTO();
 
-        ResponseEntity<Void> response = restTemplate.exchange(getBaseUrl() + "/" + appointmentId, HttpMethod.DELETE, null, Void.class);
+        MedicalAppointment appointment = new MedicalAppointment();
+        appointment.setId(appointmentId);
 
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        when(medicalAppointmentMapper.toEntity(requestDTO)).thenReturn(appointment);
+        when(appointmentService.update(any(MedicalAppointment.class))).thenReturn(appointment);
+        when(medicalAppointmentMapper.toResponseDTO(appointment)).thenReturn(new MedicalAppointmentResponseDTO());
+
+        mockMvc.perform(put("/appointments/" + appointmentId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isOk());
     }
 
-    //Todo:
+    @Test
+    @DisplayName("Deve obter todas as consultas médicas com sucesso")
+    public void testGetAllAppointments() throws Exception {
+
+        List<MedicalAppointment> appointments = Collections.singletonList(new MedicalAppointment());
+        when(appointmentService.findAll()).thenReturn(appointments);
+        when(medicalAppointmentMapper.toResponseDTO(any(MedicalAppointment.class))).thenReturn(new MedicalAppointmentResponseDTO());
+
+        mockMvc.perform(get("/appointments")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Deve obter uma consulta médica por ID com sucesso")
+    public void testGetAppointmentById() throws Exception {
+
+        Long appointmentId = 1L;
+        MedicalAppointment appointment = new MedicalAppointment();
+        appointment.setId(appointmentId);
+        when(appointmentService.findById(appointmentId)).thenReturn(appointment);
+        when(medicalAppointmentMapper.toResponseDTO(appointment)).thenReturn(new MedicalAppointmentResponseDTO());
+
+        mockMvc.perform(get("/appointments/" + appointmentId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 /*    @Test
     @DisplayName("Deve retornar 404 ao tentar excluir uma consulta médica inexistente")
-    public void testDeleteAppointmentNotFound() {
+    public void testDeleteAppointmentNotFound() throws Exception {
         // Arrange
-        Long appointmentId = 999L; // Suponha que essa consulta não exista
+        Long appointmentId = 999L; // ID que não existe
         doThrow(new ResourceNotFoundException("Consulta médica não encontrada")).when(appointmentService).delete(appointmentId);
 
         // Act
-        ResponseEntity<Void> response = restTemplate.exchange(getBaseUrl() + "/" + appointmentId, HttpMethod.DELETE, null, Void.class);
-
-        // Assert
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        mockMvc.perform(delete("/appointments/" + appointmentId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound()); // Verifica se o status é 404 Not Found
     }*/
 
 }

@@ -39,6 +39,33 @@ class MedicalAppointmentServiceTest {
     }
 
     @Test
+    @DisplayName("Deve salvar uma nova consulta médica")
+    public void testSave() {
+
+        MedicalAppointment appointmentRequestDTO = new MedicalAppointment();
+        appointmentRequestDTO.setPaciente("Paciente 1");
+        appointmentRequestDTO.setMedico("Dr. A");
+        appointmentRequestDTO.setEnfermeiro("Enfermeiro X");
+        appointmentRequestDTO.setDataHora(LocalDateTime.now());
+
+        MedicalAppointment createdAppointment = new MedicalAppointment();
+        createdAppointment.setId(1L);
+        createdAppointment.setPaciente(appointmentRequestDTO.getPaciente());
+        createdAppointment.setMedico(appointmentRequestDTO.getMedico());
+        createdAppointment.setEnfermeiro(appointmentRequestDTO.getEnfermeiro());
+        createdAppointment.setDataHora(appointmentRequestDTO.getDataHora());
+
+        when(appointmentRepository.save(any(MedicalAppointment.class))).thenReturn(createdAppointment);
+
+        MedicalAppointment result = appointmentService.save(appointmentRequestDTO);
+
+        assertEquals(createdAppointment, result, "Deve retornar a consulta criada");
+        verify(appointmentRepository, times(1)).save(appointmentRequestDTO);
+
+    }
+
+
+    @Test
     @DisplayName("Deve retornar todas as consultas")
     public void testFindAll() {
 
