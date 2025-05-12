@@ -13,6 +13,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HistoryService {
@@ -43,8 +44,18 @@ public class HistoryService {
             history.setMedico(historyDTO.getMedico());
             history.setEnfermeiro(historyDTO.getEnfermeiro());
             history.setDataHora(historyDTO.getDataHora());
-            historyRepository.save(history);
-            logger.info("Consulta processada e salva com sucesso: {}", history);
+            // Exemplo de construção do uniqueKey:
+            String uniqueKey = historyDTO.getPaciente() + "_" + historyDTO.getDataHora().toString();
+            history.setUniqueKey(uniqueKey);
+
+            // Verifica se já existe um registro com esse uniqueKey
+            Optional<History> existing = historyRepository.findByUniqueKey(uniqueKey);
+            if(existing.isPresent()){
+                logger.info("Registro já existe com uniqueKey: {}", uniqueKey);
+            } else {
+                historyRepository.save(history);
+                logger.info("Consulta processada e salva com sucesso: {}", history);
+            }
         } catch (JsonProcessingException e) {
             logger.error("Erro ao processar a mensagem JSON: {}", e.getMessage(), e);
         } catch (Exception e) {

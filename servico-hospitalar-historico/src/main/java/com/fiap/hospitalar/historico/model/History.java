@@ -13,6 +13,7 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String uniqueKey; // Por exemplo, paciente + dataHora (ou outro critério)
     private String paciente;
     private String medico;
     private String enfermeiro;
