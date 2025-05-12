@@ -115,6 +115,7 @@ A arquitetura do projeto segue o padrão MVC (Model-View-Controller) e é organi
 - **Kafka**: Sistema de mensageria para comunicação assíncrona entre serviços.
 - **MapStruct**: Biblioteca para mapeamento de objetos.
 - **Lombok**: Biblioteca para reduzir o boilerplate de código em classes Java.
+- **GraphiQL**: Ferramenta de interface gráfica para explorar e testar APIs GraphQL.
 
 ## Pré-requisitos
 
