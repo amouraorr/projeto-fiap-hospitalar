@@ -2,21 +2,21 @@ version: '3.8'
 services:
   postgres:
     image: "postgres:14"
-    container_name: "postgres"  # Nome do container do PostgreSQL
+    container_name: "postgres"
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
-      - "5433:5432"  # Porta do PostgreSQL
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - projetos-fiap-2025-hospitalar-historico_app_network
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest  # Usando a imagem do Confluent
+    image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     restart: always
     ports:
@@ -33,17 +33,17 @@ services:
     container_name: kafka
     restart: always
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:29092  # Alteração: Adicionado OUTSIDE para acesso externo
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT  # Alteração: Mapeamento de protocolos
-      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:29092  # Alteração: Configuração dos listeners
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "consultas-agendadas:1:1"
     ports:
       - "9092:9092"
-      - "29092:29092"  # Alteração: Porta para acesso externo
+      - "29092:29092"
     depends_on:
-      - zookeeper  # Alteração: Garantir que Kafka inicie após Zookeeper
+      - zookeeper
     networks:
       - projetos-fiap-2025-hospitalar-historico_app_network
 
@@ -63,17 +63,17 @@ services:
       - postgres
       - kafka
     ports:
-      - "8081:8081"  # Porta do serviço historico
+      - "8081:8081"
     networks:
       - projetos-fiap-2025-hospitalar-historico_app_network
 
   adminer:
     image: adminer
-    container_name: adminer  # Novo nome para evitar conflito
+    container_name: adminer
     depends_on:
       - postgres
     ports:
-      - "8282:8080"  # Nova porta mapeada para o Adminer
+      - "8282:8080"
     networks:
       - projetos-fiap-2025-hospitalar-historico_app_network
 
