@@ -8,9 +8,7 @@ import java.util.List;
 public interface HistoryRepository extends JpaRepository<History, Long> {
     List<History> findByPaciente(String paciente);
 
-    // Novo método para buscar por médico
     List<History> findByMedico(String medico);
 
-    // Novo método para buscar por enfermeiro:
     List<History> findByEnfermeiro(String enfermeiro);
 }

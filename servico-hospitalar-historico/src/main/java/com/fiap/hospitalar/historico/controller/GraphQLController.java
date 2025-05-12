@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,7 +43,6 @@ public class GraphQLController {
         return HistoryMapper.INSTANCE.historyToHistoryDTO(savedHistory);
     }
 
-    // Nova query para retornar todos os registros
     @QueryMapping
     public List<HistoryDTO> getAllHistories() {
         List<History> histories = historyService.getAllHistories();
@@ -53,7 +51,6 @@ public class GraphQLController {
                 .collect(toList());
     }
 
-    // Novo endpoint para buscar por médico
     @QueryMapping
     public List<HistoryDTO> getHistoriesByMedico(@Argument String medico) {
         List<History> histories = historyService.getHistoryByMedico(medico);
@@ -62,7 +59,6 @@ public class GraphQLController {
                 .collect(toList());
     }
 
-    // Novo endpoint para buscar por enfermeiro
     @QueryMapping
     public List<HistoryDTO> getHistoryByEnfermeiro(@Argument String enfermeiro) {
         List<History> histories = historyService.getHistoryByEnfermeiro(enfermeiro);
