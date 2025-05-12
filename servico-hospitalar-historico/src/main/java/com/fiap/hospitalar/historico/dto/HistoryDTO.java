@@ -14,8 +14,9 @@ public class HistoryDTO {
     private String paciente;
     private String medico;
     private String enfermeiro;
+    //private String status; // Por exemplo, status da consulta
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") // Formato correto
     private LocalDateTime dataHora;
 
 }

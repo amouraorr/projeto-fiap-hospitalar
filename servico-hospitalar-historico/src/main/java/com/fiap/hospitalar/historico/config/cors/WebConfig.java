@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/graphql")
-                .allowedOrigins("*")
+                .allowedOrigins("*") // Permitir todas as origens
                 .allowedMethods("POST", "GET", "OPTIONS");
     }
 }

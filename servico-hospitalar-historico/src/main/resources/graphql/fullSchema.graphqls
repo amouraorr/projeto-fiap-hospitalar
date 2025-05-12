@@ -7,6 +7,7 @@ schema {
 type Query {
     hello: String
     getPatientHistory(paciente: String!): [History]
+    getAllHistories: [History]
 }
 
 type Mutation {

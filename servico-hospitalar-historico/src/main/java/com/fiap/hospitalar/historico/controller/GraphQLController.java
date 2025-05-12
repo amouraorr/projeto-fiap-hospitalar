@@ -41,4 +41,14 @@ public class GraphQLController {
         History savedHistory = historyService.saveHistory(history);
         return HistoryMapper.INSTANCE.historyToHistoryDTO(savedHistory);
     }
+
+    // Nova query para retornar todos os registros
+    @QueryMapping
+    public List<HistoryDTO> getAllHistories() {
+        List<History> histories = historyService.getAllHistories();
+        return histories.stream()
+                .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
+                .collect(Collectors.toList());
+    }
+
 }
