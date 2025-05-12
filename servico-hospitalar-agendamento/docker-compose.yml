@@ -1,4 +1,4 @@
-version: '3.8'  # Você pode manter essa linha se sua versão do Docker Compose suportar
+version: '3.8'
 
 services:
   postgres:
@@ -17,7 +17,7 @@ services:
       - projetos-fiap-2025-hospitalar-agendamento_app_network
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest  # Usando a imagem do Confluent
+    image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     restart: always
     ports:
@@ -43,9 +43,9 @@ services:
       KAFKA_CREATE_TOPICS: "consultas-agendadas:1:1"
     ports:
       - "9092:9092"
-      - "29092:29092"  # Alteração: Porta para acesso externo
+      - "29092:29092"
     depends_on:
-      - zookeeper  # Alteração: Garantir que Kafka inicie após Zookeeper
+      - zookeeper
     networks:
       - projetos-fiap-2025-hospitalar-agendamento_app_network
 
