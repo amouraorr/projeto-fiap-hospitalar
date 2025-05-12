@@ -38,9 +38,8 @@ public class HistoryService {
             HistoryDTO historyDTO = objectMapper.readValue(mensagem, HistoryDTO.class);
             logger.info("Paciente recebido no Kafka: {}", historyDTO.getPaciente());
             logger.info("DataHora recebida: {}", historyDTO.getDataHora());
-            // Crie o objeto History e preencha os campos corretamente:
             History history = new History();
-            history.setPaciente(historyDTO.getPaciente());  // Certifique-se de que esse campo está sendo setado!
+            history.setPaciente(historyDTO.getPaciente());
             history.setMedico(historyDTO.getMedico());
             history.setEnfermeiro(historyDTO.getEnfermeiro());
             history.setDataHora(historyDTO.getDataHora());
