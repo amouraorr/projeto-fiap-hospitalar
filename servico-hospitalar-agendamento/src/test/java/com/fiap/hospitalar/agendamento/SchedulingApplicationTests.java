@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SchedulingApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
+	public void contextLoads() {
 
+		SchedulingApplication.main(new String[] {});
+	}
 }
