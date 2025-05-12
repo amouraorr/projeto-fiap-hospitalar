@@ -10,5 +10,5 @@ public interface HistoryMapper {
     HistoryMapper INSTANCE = Mappers.getMapper(HistoryMapper.class);
 
     HistoryDTO historyToHistoryDTO(History history);
-    //History historyDTOToHistory(HistoryDTO historyDTO);
+
 }
