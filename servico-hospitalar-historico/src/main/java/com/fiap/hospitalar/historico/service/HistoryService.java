@@ -75,4 +75,8 @@ public class HistoryService {
         return historyRepository.findByMedico(medico);
     }
 
+    // Novo método para buscar por enfermeiro:
+    public List<History> getHistoryByEnfermeiro(String enfermeiro) {
+        return historyRepository.findByEnfermeiro(enfermeiro);
+    }
 }

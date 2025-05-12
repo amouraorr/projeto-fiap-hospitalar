@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Controller
 public class GraphQLController {
 
@@ -25,7 +27,7 @@ public class GraphQLController {
         List<History> histories = historyService.getConsultationsByPatientId(paciente);
         return histories.stream()
                 .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @MutationMapping
@@ -48,7 +50,7 @@ public class GraphQLController {
         List<History> histories = historyService.getAllHistories();
         return histories.stream()
                 .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     // Novo endpoint para buscar por médico
@@ -57,7 +59,16 @@ public class GraphQLController {
         List<History> histories = historyService.getHistoryByMedico(medico);
         return histories.stream()
                 .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
-                .collect(Collectors.toList());
+                .collect(toList());
+    }
+
+    // Novo endpoint para buscar por enfermeiro
+    @QueryMapping
+    public List<HistoryDTO> getHistoryByEnfermeiro(@Argument String enfermeiro) {
+        List<History> histories = historyService.getHistoryByEnfermeiro(enfermeiro);
+        return histories.stream()
+                .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
+                .collect(toList());
     }
 
 }
