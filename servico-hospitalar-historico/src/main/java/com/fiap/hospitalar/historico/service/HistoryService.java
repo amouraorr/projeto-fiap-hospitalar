@@ -44,11 +44,10 @@ public class HistoryService {
             history.setMedico(historyDTO.getMedico());
             history.setEnfermeiro(historyDTO.getEnfermeiro());
             history.setDataHora(historyDTO.getDataHora());
-            // Exemplo de construção do uniqueKey:
+
             String uniqueKey = historyDTO.getPaciente() + "_" + historyDTO.getDataHora().toString();
             history.setUniqueKey(uniqueKey);
 
-            // Verifica se já existe um registro com esse uniqueKey
             Optional<History> existing = historyRepository.findByUniqueKey(uniqueKey);
             if(existing.isPresent()){
                 logger.info("Registro já existe com uniqueKey: {}", uniqueKey);

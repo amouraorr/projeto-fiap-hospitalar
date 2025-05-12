@@ -2,18 +2,20 @@ package com.fiap.hospitalar.agendamento.controller;
 
 import com.fiap.hospitalar.agendamento.dto.request.MedicalAppointmentRequestDTO;
 import com.fiap.hospitalar.agendamento.dto.response.MedicalAppointmentResponseDTO;
+import com.fiap.hospitalar.agendamento.service.MedicalAppointmentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.springframework.boot.test.web.client.TestRestTemplate;
-
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MedicalAppointmentControllerTest {
@@ -23,6 +25,9 @@ public class MedicalAppointmentControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @MockBean
+    private MedicalAppointmentService appointmentService;
 
     private String getBaseUrl() {
         return "http://localhost:" + port + "/appointments";
@@ -50,7 +55,6 @@ public class MedicalAppointmentControllerTest {
         assertEquals("Dr. Smith", createdAppointment.getMedico());
         assertEquals("Nurse Joy", createdAppointment.getEnfermeiro());
 
-        // Recupera a consulta pelo ID
         String getUrl = baseUrl + "/" + createdAppointment.getId();
         ResponseEntity<MedicalAppointmentResponseDTO> getResponse =
                 restTemplate.getForEntity(getUrl, MedicalAppointmentResponseDTO.class);
@@ -113,30 +117,30 @@ public class MedicalAppointmentControllerTest {
 
     }
 
-    /*@Test
-    @DisplayName("Deve excluir um agendamento e retornar NOT_FOUND ao buscá-lo")
-    public void testDeleteAppointment() {
-        String baseUrl = getBaseUrl();
+    @Test
+    @DisplayName("Deve excluir uma consulta médica com sucesso")
+    public void testDeleteAppointmentSuccess() {
 
-        MedicalAppointmentRequestDTO requestDto = new MedicalAppointmentRequestDTO();
-        requestDto.setPaciente("Patient C");
-        requestDto.setMedico("Dr. Green");
-        requestDto.setEnfermeiro("Nurse Lee");
-        requestDto.setDataHora(LocalDateTime.of(2024, 4, 29, 12, 0, 0));
+        Long appointmentId = 1L;
 
-        ResponseEntity<MedicalAppointmentResponseDTO> postResponse =
-                restTemplate.postForEntity(baseUrl, requestDto, MedicalAppointmentResponseDTO.class);
-        assertEquals(HttpStatus.CREATED, postResponse.getStatusCode());
-        Long id = postResponse.getBody().getId();
-        assertNotNull(id, "ID must be provided for deletion");
+        ResponseEntity<Void> response = restTemplate.exchange(getBaseUrl() + "/" + appointmentId, HttpMethod.DELETE, null, Void.class);
 
-        ResponseEntity<Void> deleteResponse =
-                restTemplate.exchange(baseUrl + "/" + id, HttpMethod.DELETE, null, Void.class);
-        assertEquals(HttpStatus.NO_CONTENT, deleteResponse.getStatusCode());
-
-        ResponseEntity<MedicalAppointmentResponseDTO> getResponseAfterDelete =
-                restTemplate.getForEntity(baseUrl + "/" + id, MedicalAppointmentResponseDTO.class);
-        assertEquals(HttpStatus.NOT_FOUND, getResponseAfterDelete.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
-*/
+
+    //Todo:
+/*    @Test
+    @DisplayName("Deve retornar 404 ao tentar excluir uma consulta médica inexistente")
+    public void testDeleteAppointmentNotFound() {
+        // Arrange
+        Long appointmentId = 999L; // Suponha que essa consulta não exista
+        doThrow(new ResourceNotFoundException("Consulta médica não encontrada")).when(appointmentService).delete(appointmentId);
+
+        // Act
+        ResponseEntity<Void> response = restTemplate.exchange(getBaseUrl() + "/" + appointmentId, HttpMethod.DELETE, null, Void.class);
+
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }*/
+
 }
