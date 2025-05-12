@@ -15,6 +15,6 @@ public class HistoryConsultationService {
 
     public List<History> getHistoryByPaciente(String paciente) {
 
-        return repository.findByPaciente(paciente);//patient
+        return repository.findByPaciente(paciente);
     }
 }

@@ -24,7 +24,6 @@ public class NotificationService {
     @KafkaListener(topics = "consultas-agendadas", groupId = "notification-group")
     public void listen(String message) {
 
-        // Log da mensagem recebida
         logger.info("Mensagem recebida do tópico 'consultas-agendadas': {}", message);
 
         System.out.println("Mensagem recebida: " + message);
@@ -33,14 +32,12 @@ public class NotificationService {
 
         logger.info("Tentando enviar notificações"+ message);
         try {
-            // Tente converter a string JSON em um objeto
             ConsultationRequestDTO consultationRequestDTO = objectMapper.readValue(message, ConsultationRequestDTO.class);
-            logger.info("Notificação enviada com sucesso: {}", consultationRequestDTO); // Log da consulta processada
+            logger.info("Notificação enviada com sucesso: {}", consultationRequestDTO);
 
         } catch (JsonProcessingException e) {
 
-            // Tratar erro de processamento JSON
-            logger.error("Erro ao processar a mensagem JSON: {}", e.getMessage(), e); // Log do erro
+            logger.error("Erro ao processar a mensagem JSON: {}", e.getMessage(), e);
 
         } catch (Exception e) {
             logger.error("Erro inesperado: {}", e.getMessage(), e);

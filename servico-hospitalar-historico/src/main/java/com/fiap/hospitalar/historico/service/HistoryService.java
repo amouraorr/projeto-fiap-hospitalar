@@ -54,12 +54,10 @@ public class HistoryService {
         }
     }
 
-    // Método para obter consultas por paciente
     public List<History> getConsultationsByPatientId(String paciente) {
         return historyRepository.findByPaciente(paciente);
     }
 
-    // Método para salvar um histórico
     public History saveHistory(History history) {
 
         return historyRepository.save(history);

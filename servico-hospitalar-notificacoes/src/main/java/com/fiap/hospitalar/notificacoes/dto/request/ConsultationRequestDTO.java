@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ConsultationRequestDTO {
 
-    private Long id; // Adicione este campo
+    private Long id;
     private String paciente;
     private String medico;
     private String enfermeiro;
