@@ -8,6 +8,7 @@ type Query {
     hello: String
     getPatientHistory(paciente: String!): [History]
     getAllHistories: [History]
+    getHistoriesByMedico(medico: String!): [History]
 }
 
 type Mutation {

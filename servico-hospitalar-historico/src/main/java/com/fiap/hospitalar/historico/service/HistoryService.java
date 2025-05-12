@@ -69,4 +69,10 @@ public class HistoryService {
     public List<History> getAllHistories() {
         return historyRepository.findAll();
     }
+
+    // Novo método para buscar por médico
+    public List<History> getHistoryByMedico(String medico) {
+        return historyRepository.findByMedico(medico);
+    }
+
 }

@@ -51,4 +51,13 @@ public class GraphQLController {
                 .collect(Collectors.toList());
     }
 
+    // Novo endpoint para buscar por médico
+    @QueryMapping
+    public List<HistoryDTO> getHistoriesByMedico(@Argument String medico) {
+        List<History> histories = historyService.getHistoryByMedico(medico);
+        return histories.stream()
+                .map(HistoryMapper.INSTANCE::historyToHistoryDTO)
+                .collect(Collectors.toList());
+    }
+
 }

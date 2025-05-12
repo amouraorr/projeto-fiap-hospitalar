@@ -1,3 +1,4 @@
+/*
 package com.fiap.hospitalar.historico.service;
 
 import com.fiap.hospitalar.historico.model.History;
@@ -18,3 +19,4 @@ public class HistoryConsultationService {
         return repository.findByPaciente(paciente);
     }
 }
+*/
