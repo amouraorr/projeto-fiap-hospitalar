@@ -1,4 +1,4 @@
-# projeto-fiap-hospitalar-historico
+Claro! Vamos criar um README para o serviço de histórico, seguindo a estrutura que você forneceu e adaptando para o contexto do seu projeto. Aqui está uma versão ajustada:
 
 # Serviço de Histórico - Backend
 
@@ -79,26 +79,85 @@ A arquitetura do projeto segue o padrão MVC (Model-View-Controller) e é organi
 - **Service**: Contém a lógica de negócios relacionada ao gerenciamento do histórico de consultas.
 - **Repository**: Interfaces que definem métodos para interagir com o banco de dados.
 
+## Utilização do GraphiQL
+
+### O que é GraphiQL?
+GraphiQL é uma ferramenta de interface gráfica que permite aos desenvolvedores interagir com APIs GraphQL de forma intuitiva. Com ela, é possível realizar consultas, mutações e explorar o esquema da API de maneira visual.
+
+### Acessando o GraphiQL
+Para acessar a interface do GraphiQL, inicie o servidor da aplicação e navegue até o seguinte endereço no seu navegador:
+
+http://localhost:8081/graphiql
+
+### Realizando Consultas
+Na interface do GraphiQL, você pode realizar consultas para obter dados do histórico de consultas. Aqui estão alguns exemplos de consultas que podem ser realizadas:
+
+#### 1. Consultar Todo o Histórico de Consultas
+```graphql
+query {
+  getAllHistories {
+    id
+    paciente
+    medico
+    enfermeiro
+    dataHora
+  }
+}
+
+**Descrição:** Esta consulta retorna todos os registros do histórico de consultas, incluindo informações sobre o paciente, médico, enfermeiro e data/hora da consulta.
+
+#### 2. Consultar Histórico de Consultas por Paciente
+```graphql
+query {
+  getPatientHistory(paciente: "Nome do Paciente") {
+    id
+    medico
+    enfermeiro
+    dataHora
+  }
+}
+
+**Descrição:** Esta consulta retorna o histórico de consultas para um paciente específico, permitindo que você veja todas as consultas realizadas por ele.
+
+#### 3. Consultar Histórico de Consultas por Médico
+```graphql
+query {
+  getHistoriesByMedico(medico: "Nome do Médico") {
+    id
+    paciente
+    enfermeiro
+    dataHora
+  }
+}
+
+**Descrição:** Esta consulta retorna todas as consultas realizadas por um médico específico.
+
+### Explorando o Esquema
+A interface do GraphiQL também permite que você explore o esquema GraphQL da API. Você pode visualizar os tipos de dados disponíveis, as consultas e mutações que podem ser realizadas, e os campos que cada tipo contém. Isso facilita a compreensão da estrutura da API e ajuda na construção de consultas mais complexas.
+
+### Conclusão
+A utilização do GraphiQL proporciona uma maneira prática e eficiente de interagir com a API GraphQL do serviço de histórico, permitindo que desenvolvedores e usuários testem e explorem as funcionalidades disponíveis de forma intuitiva.
+
 ## Princípios de Design e Padrões de Projeto
 
 ### Princípios de Design
 
 1. **Single Responsibility Principle (SRP)**:
-   - Cada classe deve ter uma única responsabilidade. Por exemplo, a classe `HistoryService` é responsável apenas pela lógica de negócios relacionada ao histórico de consultas, enquanto o `GraphQLController` lida com as requisições HTTP.
+    - Cada classe deve ter uma única responsabilidade. Por exemplo, a classe `HistoryService` é responsável apenas pela lógica de negócios relacionada ao histórico de consultas, enquanto o `GraphQLController` lida com as requisições HTTP.
 
 2. **Open/Closed Principle (OCP)**:
-   - As classes devem estar abertas para extensão, mas fechadas para modificação. Isso é alcançado através do uso de interfaces e classes que implementam essas interfaces.
+    - As classes devem estar abertas para extensão, mas fechadas para modificação. Isso é alcançado através do uso de interfaces e classes que implementam essas interfaces.
 
 3. **Dependency Inversion Principle (DIP)**:
-   - As classes de alto nível não devem depender de classes de baixo nível, mas ambas devem depender de abstrações. Isso é alcançado através da injeção de dependência.
+    - As classes de alto nível não devem depender de classes de baixo nível, mas ambas devem depender de abstrações. Isso é alcançado através da injeção de dependência.
 
 ### Padrões de Projeto
 
 1. **MVC (Model-View-Controller)**:
-   - A estrutura segue o padrão MVC, onde:
-     - **Model**: Representado pelas classes de modelo (`History`).
-     - **Controller**: As classes de controlador (`GraphQLController`) gerenciam as requisições e interagem com os serviços.
-     - **View**: Embora não exista uma camada de visualização tradicional, as respostas JSON podem ser vistas como uma forma de "view".
+    - A estrutura segue o padrão MVC, onde:
+    - **Model**: Representado pelas classes de modelo (`History`).
+    - **Controller**: As classes de controlador (`GraphQLController`) gerenciam as requisições e interagem com os serviços.
+    - **View**: Embora não exista uma camada de visualização tradicional, as respostas JSON podem ser vistas como uma forma de "view".
 
 ## Interação entre as Partes do Sistema
 
@@ -115,7 +174,6 @@ A arquitetura do projeto segue o padrão MVC (Model-View-Controller) e é organi
 - **Kafka**: Sistema de mensageria para comunicação assíncrona entre serviços.
 - **MapStruct**: Biblioteca para mapeamento de objetos.
 - **Lombok**: Biblioteca para reduzir o boilerplate de código em classes Java.
-- **GraphiQL**: Ferramenta de interface gráfica para explorar e testar APIs GraphQL.
 
 ## Pré-requisitos
 
@@ -133,7 +191,7 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
    ```bash
    git clone https://github.com/amouraorr/projeto-fiap-hospitalar.git
    ```
-*Obs: utilizar a branch 'main'.
+   *Obs: utilizar a branch 'main'.
 
 ### Passos para Criar o Pacote do Projeto
 
@@ -150,7 +208,7 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 3. Execute o seguinte comando para iniciar os contêineres:
    ```bash
    docker compose up
-   ```
+
 4. A aplicação estará disponível em `http://localhost:8080` e o Swagger em `http://localhost:8080/swagger-ui/index.html#/`.
 5. O banco de dados PostgreSQL estará rodando em `http://localhost:5432`.
 6. A ferramenta Adminer estará disponível para visualização do banco de dados no endereço `http://localhost:8181`.
