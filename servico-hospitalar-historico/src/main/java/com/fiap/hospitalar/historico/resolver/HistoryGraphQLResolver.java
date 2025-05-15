@@ -1,4 +1,4 @@
-package com.fiap.hospitalar.historico.controller;
+package com.fiap.hospitalar.historico.resolver;
 
 import com.fiap.hospitalar.historico.dto.HistoryDTO;
 import com.fiap.hospitalar.historico.mapper.HistoryMapper;
@@ -16,7 +16,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Controller
-public class GraphQLController {
+public class HistoryGraphQLResolver {
 
     @Autowired
     private HistoryService historyService;

@@ -1,4 +1,4 @@
-package com.fiap.hospitalar.historico.controller;
+package com.fiap.hospitalar.historico.resolver;
 
 import com.fiap.hospitalar.historico.dto.HistoryDTO;
 import com.fiap.hospitalar.historico.mapper.HistoryMapper;
@@ -7,8 +7,6 @@ import com.fiap.hospitalar.historico.service.HistoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class GraphQLControllerTest {
+public class HistoryGraphQLResolverTest {
 
     @Autowired
-    private GraphQLController graphQLController;
+    private HistoryGraphQLResolver historyGraphQLResolver;
 
     @MockBean
     private HistoryService historyService;
@@ -42,7 +40,7 @@ public class GraphQLControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(graphQLController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(historyGraphQLResolver).build();
     }
 
     @Test
@@ -58,7 +56,7 @@ public class GraphQLControllerTest {
         when(historyService.getConsultationsByPatientId(paciente)).thenReturn(Arrays.asList(history));
         when(historyMapper.historyToHistoryDTO(history)).thenReturn(historyDTO); // Usando o mock do HistoryMapper
 
-        List<HistoryDTO> result = graphQLController.getPatientHistory(paciente);
+        List<HistoryDTO> result = historyGraphQLResolver.getPatientHistory(paciente);
 
         assertEquals(1, result.size());
         assertEquals(paciente, result.get(0).getPaciente());
@@ -85,7 +83,7 @@ public class GraphQLControllerTest {
         when(historyService.saveHistory(history)).thenReturn(history);
         when(historyMapper.historyToHistoryDTO(history)).thenReturn(savedHistoryDTO); // Usando o mock do HistoryMapper
 
-        HistoryDTO result = graphQLController.addHistory(paciente, medico, enfermeiro, dataHora);
+        HistoryDTO result = historyGraphQLResolver.addHistory(paciente, medico, enfermeiro, dataHora);
 
         assertNotNull(result);
         assertEquals(paciente, result.getPaciente());
@@ -104,7 +102,7 @@ public class GraphQLControllerTest {
         when(historyMapper.historyToHistoryDTO(history1)).thenReturn(new HistoryDTO());
         when(historyMapper.historyToHistoryDTO(history2)).thenReturn(new HistoryDTO());
 
-        List<HistoryDTO> result = graphQLController.getAllHistories();
+        List<HistoryDTO> result = historyGraphQLResolver.getAllHistories();
 
         assertEquals(2, result.size());
     }
@@ -120,7 +118,7 @@ public class GraphQLControllerTest {
         when(historyService.getHistoryByMedico(medico)).thenReturn(Arrays.asList(history));
         when(historyMapper.historyToHistoryDTO(history)).thenReturn(new HistoryDTO());
 
-        List<HistoryDTO> result = graphQLController.getHistoriesByMedico(medico);
+        List<HistoryDTO> result = historyGraphQLResolver.getHistoriesByMedico(medico);
 
         assertEquals(1, result.size());
     }
@@ -137,7 +135,7 @@ public class GraphQLControllerTest {
         when(historyMapper.historyToHistoryDTO(history)).thenReturn(new HistoryDTO());
 
         // Act
-        List<HistoryDTO> result = graphQLController.getHistoryByEnfermeiro(enfermeiro);
+        List<HistoryDTO> result = historyGraphQLResolver.getHistoryByEnfermeiro(enfermeiro);
 
         // Assert
         assertEquals(1, result.size());
