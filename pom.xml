@@ -6,7 +6,7 @@
     
     <groupId>com.fiap.hospitalar</groupId>
     <artifactId>servico-hospitalar</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Serviço Hospitalar</name>
     <description>Projeto hospitalar para agendamento de consultas, gerenciamento do histórico de pacientes e o envio de lembretes automáticos para garantir a presença dos pacientes nas consultas.</description>

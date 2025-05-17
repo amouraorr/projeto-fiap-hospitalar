@@ -1,9 +1,13 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Etapa 1: Build do projeto
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /build
+COPY . .
+# Executa o build apenas do módulo desejado, resolvendo dependências e o POM pai
+RUN mvn -pl servico-hospitalar-agendamento -am clean package -DskipTests
 
+# Etapa 2: Imagem final
+FROM eclipse-temurin:17-jre
 WORKDIR /app
-
-COPY target/servico-hospitalar-agendamento-0.0.1-SNAPSHOT.jar app.jar
-
+COPY --from=build /build/servico-hospitalar-agendamento/target/servico-hospitalar-agendamento-1.0.0.jar app.jar
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]

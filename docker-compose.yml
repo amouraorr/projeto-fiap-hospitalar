@@ -1,4 +1,64 @@
 services:
+  servico-hospitalar-agendamento:
+    build:
+      context: .
+      dockerfile: ./servico-hospitalar-agendamento/Dockerfile
+    container_name: agendamento_service_container
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - projetos-fiap-2025-hospitalar_app_network
+
+  servico-hospitalar-historico:
+    build:
+      context: .
+      dockerfile: ./servico-hospitalar-historico/Dockerfile
+    container_name: historico_service_container
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - projetos-fiap-2025-hospitalar_app_network
+
+  servico-hospitalar-notificacoes:
+    build:
+      context: .
+      dockerfile: ./servico-hospitalar-notificacoes/Dockerfile
+    container_name: notificacoes_service_container
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - projetos-fiap-2025-hospitalar_app_network
+
   postgres:
     image: "postgres:14"
     container_name: "postgres"
@@ -44,63 +104,6 @@ services:
       - "29092:29092"
     depends_on:
       - zookeeper
-    networks:
-      - projetos-fiap-2025-hospitalar_app_network
-
-  servico-hospitalar-agendamento:
-    build:
-      context: ./servico-hospitalar-agendamento
-    container_name: agendamento_service_container
-    restart: always
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-      - kafka
-    networks:
-      - projetos-fiap-2025-hospitalar_app_network
-
-  servico-hospitalar-historico:
-    build:
-      context: ./servico-hospitalar-historico
-    container_name: historico_service_container
-    restart: always
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8081:8081"
-    depends_on:
-      - postgres
-      - kafka
-    networks:
-      - projetos-fiap-2025-hospitalar_app_network
-
-  servico-hospitalar-notificacoes:
-    build:
-      context: ./servico-hospitalar-notificacoes
-    container_name: notificacoes_service_container
-    restart: always
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8082:8082"
-    depends_on:
-      - postgres
-      - kafka
     networks:
       - projetos-fiap-2025-hospitalar_app_network
 
