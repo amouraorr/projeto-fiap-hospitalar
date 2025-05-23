@@ -178,8 +178,13 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 
 ## Link para a Collection do Postman
 
-[Baixe a Collection do Postman aqui]// todo revisar os caminhos
-https://github.com/amouraorr/projeto-fiap-hospitalar/tree/main/postman-collections/postman_collection.json
+[Baixe a Collection do Postman aqui](https://github.com/amouraorr/projeto-fiap-hospitalar/blob/main/postman-collections/pos-fiap-2025-agendamento-hospitalar.postman_collection.json)
+
+### **Como baixar:**  
+> Ao clicar no link acima, o GitHub exibirá o conteúdo do arquivo. Para baixar corretamente:
+ 1. Clique no botão **"Raw"** no canto superior direito da visualização do arquivo.
+ 2. Com a página "Raw" aberta, clique com o botão direito e escolha **"Salvar como..."** para salvar o arquivo `.json` no seu computador.
+
 
 ### Como Importar a Collection do Postman
 
