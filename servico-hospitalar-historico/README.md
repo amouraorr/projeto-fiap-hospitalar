@@ -87,7 +87,7 @@ GraphiQL é uma ferramenta de interface gráfica que permite aos desenvolvedores
 ### Acessando o GraphiQL
 Para acessar a interface do GraphiQL, inicie o servidor da aplicação e navegue até o seguinte endereço no seu navegador:
 
-http://localhost:8081/graphiql
+http://localhost:8081/graphiql.html
 
 ### Realizando Consultas
 Na interface do GraphiQL, você pode realizar consultas para obter dados do histórico de consultas. Aqui estão alguns exemplos de consultas que podem ser realizadas:
@@ -223,9 +223,18 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 6. Em Base de dados, preencha com postgres.
 7. Clique em Entrar.
 
+### Passos para Acessar o GraphiQL
+
+1. Certifique-se de que o servidor da aplicação está em execução.
+2. Abra o seu navegador de internet.
+3. Acesse o endereço: `http://localhost:8081/graphiql.html`.
+4. A interface do GraphiQL será exibida.
+5. Utilize o painel para realizar consultas (queries) e mutações (mutations) na API GraphQL do serviço de histórico.
+
+
 ![Login Adminer](adminer.png)
 
-## Link para a Collection do Postman
+## Link para a Collection do Postman// todo revisar
 
 [Baixe a Collection do Postman aqui](https://github.com/amouraorr/projeto-fiap-hospitalar/blob/main/postman-collections/pos-fiap-2025-agendamento-hospitalar.postman_collection.json)
 

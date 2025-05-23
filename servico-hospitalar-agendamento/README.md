@@ -167,9 +167,19 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 6. Em Base de dados, preencha com postgres.
 7. Clique em Entrar.
 
+### Passos para Acessar o GraphiQL
+
+1. Certifique-se de que o servidor da aplicação está em execução.
+2. Abra o seu navegador de internet.
+3. Acesse o endereço: `http://localhost:8081/graphiql.html`.
+4. A interface do GraphiQL será exibida.
+5. Utilize o painel para realizar consultas (queries) e mutações (mutations) na API GraphQL do serviço de histórico.
+
+
 ## Link para a Collection do Postman
-///TODO:REVISAR
-[Baixe a Collection do Postman aqui](https://github.com/amouraorr/projeto-fiap-hospitalar/blob/main/postman-collections/pos-fiap-2025-agendamento-hospitalar.postman_collection.json)
+
+[Baixe a Collection do Postman aqui]// todo revisar os caminhos
+https://github.com/amouraorr/projeto-fiap-hospitalar/tree/main/postman-collections/postman_collection.json
 
 ### Como Importar a Collection do Postman
 
