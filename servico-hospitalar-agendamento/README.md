@@ -45,11 +45,8 @@ projeto-fiap-hospitalar/
 │       
 ├── pom.xml
 ├── README.md
-├── Dockefile
-├── docker-compose.yml
-├── postman-collections/
 └── ...
-
+```
 ## Segurança
 
 A segurança do sistema é tratada com o uso do Spring Security, que fornece autenticação e autorização robustas. As principais medidas de segurança implementadas incluem:
@@ -137,14 +134,6 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
    ```
 *Obs: utilizar a branch 'main'.
 
-### Passos para Criar o Pacote do Projeto
-
-1. No terminal, navegue até o diretório do projeto.
-2. Execute o comando do Maven para compilar e empacotar o projeto:
-   ```bash
-   mvn clean package -DskipTests
-   ```
-
 ### Passos para Executar o Docker Compose
 
 1. Certifique-se de que o Docker e o Docker Compose estejam instalados e rodando na sua máquina.
@@ -166,15 +155,6 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 5. Em Senha, preencha postgres.
 6. Em Base de dados, preencha com postgres.
 7. Clique em Entrar.
-
-### Passos para Acessar o GraphiQL
-
-1. Certifique-se de que o servidor da aplicação está em execução.
-2. Abra o seu navegador de internet.
-3. Acesse o endereço: `http://localhost:8081/graphiql.html`.
-4. A interface do GraphiQL será exibida.
-5. Utilize o painel para realizar consultas (queries) e mutações (mutations) na API GraphQL do serviço de histórico.
-
 
 ## Link para a Collection do Postman
 

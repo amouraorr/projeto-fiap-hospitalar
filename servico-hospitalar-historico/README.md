@@ -53,11 +53,8 @@ projeto-fiap-hospitalar-historico/
 │       
 ├── pom.xml : Arquivo de configuração do Maven, contendo dependências e plugins.
 ├── README.md : Documentação do projeto, incluindo instruções e informações relevantes.
-├── Dockerfile : Arquivo de configuração para a construção da imagem Docker da aplicação.
-├── docker-compose.yml : Arquivo de configuração para orquestração de contêineres Docker.
-├── postman-collections/ : Coleções do Postman para testes da API.
 └── ...
-
+```
 
 ## Segurança
 
@@ -103,8 +100,8 @@ query {
     dataHora
   }
 }
-
-**Descrição:** Esta consulta retorna todos os registros do histórico de consultas, incluindo informações sobre o paciente, médico, enfermeiro e data/hora da consulta.
+```
+ **Descrição:** Esta consulta retorna todos os registros do histórico de consultas, incluindo informações sobre o paciente, médico, enfermeiro e data/hora da consulta.
 
 #### 2. Consultar Histórico de Consultas por Paciente
 ```graphql
@@ -116,7 +113,7 @@ query {
     dataHora
   }
 }
-
+```
 **Descrição:** Esta consulta retorna o histórico de consultas para um paciente específico, permitindo que você veja todas as consultas realizadas por ele.
 
 #### 3. Consultar Histórico de Consultas por Médico
@@ -129,7 +126,7 @@ query {
     dataHora
   }
 }
-
+```
 **Descrição:** Esta consulta retorna todas as consultas realizadas por um médico específico.
 
 ### Explorando o Esquema
@@ -193,14 +190,6 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
    ```
    *Obs: utilizar a branch 'main'.
 
-### Passos para Criar o Pacote do Projeto
-
-1. No terminal, navegue até o diretório do projeto.
-2. Execute o comando do Maven para compilar e empacotar o projeto:
-   ```bash
-   mvn clean package -DskipTests
-   ```
-
 ### Passos para Executar o Docker Compose
 
 1. Certifique-se de que o Docker e o Docker Compose estejam instalados e rodando na sua máquina.
@@ -209,20 +198,6 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
    ```bash
    docker compose up
 
-4. A aplicação estará disponível em `http://localhost:8080` e o Swagger em `http://localhost:8080/swagger-ui/index.html#/`.
-5. O banco de dados PostgreSQL estará rodando em `http://localhost:5432`.
-6. A ferramenta Adminer estará disponível para visualização do banco de dados no endereço `http://localhost:8181`.
-
-### Passos para Conectar no Banco de Dados com o Adminer
-
-1. Acesse o endereço `http://localhost:8181`.
-2. Em Sistema, escolha PostgreSQL.
-3. Em Servidor, preencha o nome do serviço do Postgres do Docker Compose (postgres).
-4. Em Usuário, preencha postgres.
-5. Em Senha, preencha postgres.
-6. Em Base de dados, preencha com postgres.
-7. Clique em Entrar.
-
 ### Passos para Acessar o GraphiQL
 
 1. Certifique-se de que o servidor da aplicação está em execução.
@@ -230,28 +205,6 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
 3. Acesse o endereço: `http://localhost:8081/graphiql.html`.
 4. A interface do GraphiQL será exibida.
 5. Utilize o painel para realizar consultas (queries) e mutações (mutations) na API GraphQL do serviço de histórico.
-
-
-![Login Adminer](adminer.png)
-
-## Link para a Collection do Postman// todo revisar
-
-[Baixe a Collection do Postman aqui](https://github.com/amouraorr/projeto-fiap-hospitalar/blob/main/postman-collections/pos-fiap-2025-agendamento-hospitalar.postman_collection.json)
-
-### **Como baixar:**
-> Ao clicar no link acima, o GitHub exibirá o conteúdo do arquivo. Para baixar corretamente:
-1. Clique no botão **"Raw"** no canto superior direito da visualização do arquivo.
-2. Com a página "Raw" aberta, clique com o botão direito e escolha **"Salvar como..."** para salvar o arquivo `.json` no seu computador.
-
-
-### Como Importar a Collection do Postman
-
-1. Baixe o arquivo JSON da collection usando o link acima.
-2. Abra o Postman.
-3. Clique no ícone de importar (Import) no canto superior esquerdo.
-4. Selecione "Upload Files".
-5. Escolha o arquivo JSON baixado e clique em "Open".
-6. A coleção será importada para o Postman e estará disponível para uso.
 
 ## Contribuição
 

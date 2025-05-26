@@ -41,8 +41,6 @@ projeto-fiap-hospitalar-notificacoes/
 │   └── resources/
 │       └── application.properties : Configurações da aplicação.
 ├── pom.xml : Arquivo de configuração do Maven.
-├── Dockerfile : Arquivo para construção da imagem Docker.
-├── docker-compose.yml : Arquivo para orquestração de contêineres.
 └── README.md : Documentação do projeto.
 ```
 
@@ -115,18 +113,10 @@ Antes de executar o projeto, certifique-se de ter as seguintes ferramentas insta
    ```
    *Obs: utilizar a branch 'main'.
 
-### Passos para Criar o Pacote do Projeto
-
-1. No terminal, navegue até o diretório do projeto.
-2. Execute o comando do Maven para compilar e empacotar o projeto:
-   ```bash
-   mvn clean package -DskipTests
-   ```
-
 ### Passos para Executar o Docker Compose
 
 1. Certifique-se de que o Docker e o Docker Compose estejam instalados e rodando na sua máquina.
-2. No terminal, navegue até o diretório onde está localizado o arquivo `docker-compose.yml`.
+2. NNo terminal, navegue até o diretório do projeto, onde está localizado o arquivo `docker-compose.yml`.
 3. Execute o seguinte comando para iniciar os contêineres:
    ```bash
    docker compose up
